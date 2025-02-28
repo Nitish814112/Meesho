@@ -29,10 +29,12 @@ const HeroSection = () => {
 
         {/* Download Button */}
         <div className="mt-6">
+          <a href="https://play.google.com/store/apps/details?id=com.meesho.supply&hl=en_IN" target="_blank">
           <button className="flex items-center gap-3 bg-[#9F2089] text-white font-bold px-5 py-3 rounded-full shadow-lg">
             <img src="/play.png" alt="Download App" className="w-5 h-5" />
             Download the Meesho App
           </button>
+          </a>
         </div>
       </div>
 

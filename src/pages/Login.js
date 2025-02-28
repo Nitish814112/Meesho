@@ -1,90 +1,71 @@
 import React, { useState } from "react";
-import { initializeApp } from "firebase/app";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import emailjs from "emailjs-com";
+import { loginSuccess } from "../Redux/authSlice";
 import Nav from "../component/Navbar/Nav";
 
-// 🔹 Firebase Configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDRXAnZxoD-kl3M1nmRWgTiJbZvjulnfuk",
-  authDomain: "meeshologinsystem.firebaseapp.com",
-  projectId: "meeshologinsystem",
-  storageBucket: "meeshologinsystem.firebasestorage.app",
-  messagingSenderId: "837485523416",
-  appId: "1:837485523416:web:be571c049641553ac2c2ad",
-  measurementId: "G-28ZX82JHBR",
-};
-
-// 🔹 Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-auth.useDeviceLanguage();
-
 const Login = () => {
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [confirmationResult, setConfirmationResult] = useState(null);
-  const [step, setStep] = useState(1); // 1: Enter Phone, 2: Enter OTP
+  const [generatedOtp, setGeneratedOtp] = useState("");
+  const [step, setStep] = useState(1);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation(); // Get previous location
 
-  // 🔹 Function to Send OTP
+  // Send OTP
   const sendOTP = async () => {
-    if (phone.length !== 10) {
-      alert("Please enter a valid 10-digit phone number.");
+    if (!email.includes("@")) {
+      alert("Please enter a valid email address.");
       return;
     }
 
-    const phoneNumber = `+91${phone}`;
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    setGeneratedOtp(otpCode);
+    setStep(2);
+
+    const templateParams = {
+      to_name: email,
+      otp_code: otpCode,
+    };
 
     try {
-      // Reset reCAPTCHA before sending OTP
-      if (window.recaptchaVerifier) {
-        window.recaptchaVerifier.clear();
-      }
-
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-        size: "invisible",
-        callback: (response) => {
-          console.log("reCAPTCHA solved:", response);
-        },
-        "expired-callback": () => {
-          console.log("reCAPTCHA expired. Resetting...");
-          sendOTP(); // Auto-retry
-        },
-      });
-
-      // 🔹 Send OTP
-      const confirmation = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
-      setConfirmationResult(confirmation);
-      setStep(2); // Move to OTP screen
-      console.log("✅ OTP sent successfully!");
+      await emailjs.send(
+        "service_rg72cc8",
+        "template_ufit4nd",
+        templateParams,
+        "w55HEmj60kOP3v-qE"
+      );
+      alert(`✅ OTP sent to ${email}!`);
     } catch (error) {
-      console.error("❌ Error sending OTP:", error);
       alert("Failed to send OTP. Try again.");
     }
   };
 
-  // 🔹 Function to Verify OTP
-  const verifyOTP = async () => {
-    if (otp.length !== 6) {
-      alert("Please enter a valid 6-digit OTP.");
-      return;
-    }
-
-    try {
-      await confirmationResult.confirm(otp);
+  // Verify OTP
+  const verifyOTP = () => {
+    console.log("Entered OTP:", otp);
+    console.log("Expected OTP:", generatedOtp);
+  
+    if (otp === generatedOtp) {
+      dispatch(loginSuccess(email));  
+      localStorage.setItem("isLoggedIn", "true"); 
+      localStorage.setItem("user", email); 
       alert("✅ Login Successful!");
-      // Redirect or update UI after successful login
-    } catch (error) {
-      alert("❌ Invalid OTP. Please try again.");
-      console.error(error);
+  
+      const redirectPath = location.state?.from || "/"; 
+      navigate(redirectPath);
+    } else {
+      alert("Invalid OTP. Please try again.");
     }
   };
 
   return (
     <>
-      <Nav />
-      <div className="flex items-center justify-center bg-gradient-to-b from-pink-100 to-white min-h-screen">
+      
+      <div className="flex items-center justify-center bg-gradient-to-b from-pink-100 -mt-8 to-white min-h-screen">
         <div className="bg-white p-8 rounded-2xl shadow-lg w-96 text-center">
-          {/* 🔹 Top Banner */}
           <div className="relative w-full h-40 bg-gradient-to-r from-pink-500 to-purple-500 rounded-t-2xl overflow-hidden">
             <img src="../loginbanner.webp" alt="Banner" className="w-full h-full object-cover" />
           </div>
@@ -95,29 +76,26 @@ const Login = () => {
 
           {step === 1 ? (
             <>
-              {/* 🔹 Phone Number Input */}
-              <div className="text-left text-gray-600 text-sm mb-1">Country</div>
+              <div className="text-left text-gray-600 text-sm mb-1">Email</div>
               <div className="flex border rounded-lg p-2 items-center">
-                <span className="font-bold text-gray-700 px-2">+91</span>
                 <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 outline-none text-gray-700"
                 />
               </div>
+
               <button
                 onClick={sendOTP}
                 className="mt-4 w-full bg-purple-600 text-white py-2 rounded-lg font-semibold"
               >
                 Continue
               </button>
-              <div id="recaptcha-container"></div>
             </>
           ) : (
             <>
-              {/* 🔹 OTP Input */}
               <div className="flex justify-center space-x-2">
                 {[...Array(6)].map((_, i) => (
                   <input
@@ -133,6 +111,7 @@ const Login = () => {
                   />
                 ))}
               </div>
+
               <button
                 onClick={verifyOTP}
                 className="mt-4 w-full bg-green-600 text-white py-2 rounded-lg font-semibold"

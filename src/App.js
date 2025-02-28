@@ -1,18 +1,27 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./Layout";
-import ProductDetail from "./pages/ProductDetails.jsx";
-import CartPage from "./pages/CartPage.jsx";
-import Login from "./pages/Login.js";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "./Redux/productSlice";
+import MainLayout from "./component/MainLayout/MainLayout";
 
 function App() {
+  const dispatch = useDispatch();
+  const { items, status, error } = useSelector((state) => state.products);
+  const [filteredResults, setFilteredResults] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Layout />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/product/Cart" element={<CartPage/>}/>
-        <Route path="/login" element={<Login/>}/>
-      </Routes>
+      <MainLayout
+        items={items}
+        status={status}
+        error={error}
+        filteredResults={filteredResults}
+        onSearchResults={setFilteredResults}
+      />
     </Router>
   );
 }

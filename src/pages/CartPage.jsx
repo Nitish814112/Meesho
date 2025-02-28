@@ -8,6 +8,10 @@ const CartPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.cartItems);
+  
+  
+  
+  
 
   console.log(cartItems); // it has 33 product instead of 1
   
@@ -22,8 +26,9 @@ const CartPage = () => {
     return total + discount;
   }, 0) || 10;
   console.log("totalDiscount",totalDiscount);
+  const total_Discount=totalPrice>0?totalDiscount:0;
+  const orderTotal = totalPrice - total_Discount;
   
-  const orderTotal = totalPrice - totalDiscount;
 
   return (
     <div className="container mx-auto p-6 flex flex-wrap justify-center items-center mb-4">
@@ -113,7 +118,7 @@ const CartPage = () => {
 
           <div className="flex justify-between text-green-600 mt-2">
             <span>Total Discounts</span>
-            <span>-₹{totalDiscount}</span> 
+            <span>-₹{total_Discount}</span> 
           </div>
 
           <hr className="my-2" />
@@ -124,7 +129,7 @@ const CartPage = () => {
           </div>
 
           <p className="bg-green-100 text-green-600 text-sm p-2 mt-2 rounded">
-            ✅ Yay! Your total discount is ₹{totalDiscount}
+            ✅ Yay! Your total discount is ₹{total_Discount}
           </p>
 
           {/* Continue Button */}

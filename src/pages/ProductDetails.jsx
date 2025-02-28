@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, addToCart } from "../Redux/productSlice";  // ✅ Import addToCart
-import Navbar from "../component/Navbar/Navbar";
+import { fetchProducts, addToCart } from "../Redux/productSlice"; 
+
+
 
 const ProductDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
+  // ✅ Select products and user authentication state from Redux
   const { items, status, error } = useSelector((state) => state.products);
-  const [product, setProduct] = useState(null);
+  const isLoggedIn = useSelector((state) => state.auth?.isLoggedIn) || localStorage.getItem("isLoggedIn") === "true";
+  console.log("isLoggedIn,isLoggedIn");  // result is coming as "isLoggedIn" text istead of true or false
+  
 
+  const [product, setProduct] = useState(null);
   let size = ["XS", "S", "M", "XL", "XXL"];
 
   useEffect(() => {
@@ -31,14 +36,15 @@ const ProductDetail = () => {
   if (error) return <p className="text-center mt-10 text-red-500">Error: {error}</p>;
   if (!product) return <p className="text-center mt-10">Product not found</p>;
 
-  // ✅ Function to handle Add to Cart
+  // ✅ Handle Add to Cart with Login Check
   const handleAddToCart = () => {
-    dispatch(addToCart(product));  
-    console.log("adding to cart:", product);
-    
-    setTimeout(() => {
-      navigate("/product/cart"); // ✅ Redirect to Cart Page after adding
-    }, 500); // Optional delay for better UX
+    if (!isLoggedIn) {
+      alert("⚠️ Please log in to add items to your cart.");
+      navigate("/login"); // 🔹 Redirect to Login if not logged in
+    } else {
+      dispatch(addToCart(product));
+      console.log("Adding to cart:", product);
+    }
   };
 
   return (
@@ -85,7 +91,7 @@ const ProductDetail = () => {
 
           {/* Actions */}
           <div className="flex gap-4 mt-6">
-            {/* ✅ Updated Add to Cart button */}
+            {/* ✅ Updated Add to Cart button with Login Check */}
             <button onClick={handleAddToCart} className="bg-purple-600 text-white px-6 py-2 rounded flex items-center gap-2">
               🛒 Add to Cart
             </button>

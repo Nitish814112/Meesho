@@ -31,7 +31,9 @@ const productSlice = createSlice({
       console.log("action", action); // Log selected product
 
       const product = action.payload;
+
       const existingProduct = state.cartItems.find((item) => item.id === product.id);
+     
 
       if (existingProduct) {
         existingProduct.quantity += 1; // ✅ Increase quantity if already in cart
