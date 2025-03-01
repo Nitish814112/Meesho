@@ -8,14 +8,18 @@ import ProductDetail from "../../pages/ProductDetails.jsx";
 import CartPage from "../../pages/CartPage.jsx";
 import Login from "../../pages/Login.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
+import Address from "../Address/Address.jsx";
+import OrderSuccess from "../OrderSuccess/OrderSuccess.jsx";
+import ErrorPage from "../../pages/ErrorPage.jsx"; // Import ErrorPage
 
 function MainLayout({ items, status, error, filteredResults, onSearchResults }) {
   const location = useLocation();
-  const hideNavbar = location.pathname === "/product/cart"; // Hide Navbar on cart page
+  const hiddenRoutes = new Set(["/product/cart", "/userAddress", "/ordersuccess"]);
+  const hideNavbar = hiddenRoutes.has(location.pathname);
 
   return (
     <div className="grid grid-rows-[auto_auto_1fr_auto] min-h-screen gap-8">
-      {/* Navbar - Hide on Cart Page */}
+      {/* Navbar - Hide on specific pages */}
       {!hideNavbar && (
         <div className="nav w-full top-0 sticky z-10 bg-white shadow">
           <Navbar items={items} onSearchResults={onSearchResults} />
@@ -29,16 +33,16 @@ function MainLayout({ items, status, error, filteredResults, onSearchResults }) 
           element={
             <>
               {/* Hero Section (Hidden if filteredResults exist) */}
-{(filteredResults || []).length === 0 && <HeroSection />}
-
+              {filteredResults?.length === 0 && <HeroSection />}
+              
               {/* Cart Section */}
               <CartSection
-                items={Array.isArray(filteredResults) && filteredResults.length > 0 ? filteredResults : Array.isArray(items) ? items : []}
+                items={filteredResults?.length > 0 ? filteredResults : items || []}
                 status={status}
                 error={error}
               />
 
-              {/* Footer (Only on Home Page) */}
+              {/* Footer (Visible only on Home Page) */}
               <Footer />
             </>
           }
@@ -46,6 +50,11 @@ function MainLayout({ items, status, error, filteredResults, onSearchResults }) 
 
         {/* Other Routes */}
         <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/userAddress" element={<Address />} />
+        <Route path="/ordersuccess" element={<OrderSuccess />} />
+        
+        {/* Protected Routes */}
         <Route
           path="/product/cart"
           element={
@@ -54,7 +63,10 @@ function MainLayout({ items, status, error, filteredResults, onSearchResults }) 
             </ProtectedRoute>
           }
         />
-        <Route path="/login" element={<Login />} />
+
+        {/* Error Handling Routes */}
+        <Route path="/unauthorized" element={<ErrorPage errorCode={401} />} />
+        <Route path="*" element={<ErrorPage errorCode={404} />} /> {/* Catch-all for 404 */}
       </Routes>
     </div>
   );

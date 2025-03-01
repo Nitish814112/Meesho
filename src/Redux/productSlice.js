@@ -28,12 +28,8 @@ const productSlice = createSlice({
   reducers: {
     // ✅ Add to Cart
     addToCart: (state, action) => {
-      console.log("action", action); // Log selected product
-
       const product = action.payload;
-
       const existingProduct = state.cartItems.find((item) => item.id === product.id);
-
 
       if (existingProduct) {
         existingProduct.quantity += 1; // ✅ Increase quantity if already in cart
@@ -63,6 +59,11 @@ const productSlice = createSlice({
           }
         }
       }
+    },
+
+    // ✅ Clear Cart (NEW FUNCTION)
+    clearCart: (state) => {
+      state.cartItems = [];
     },
 
     // ✅ Filter by Category
@@ -113,5 +114,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, updateCartQuantity, filterByCategory } = productSlice.actions;
+export const { addToCart, removeFromCart, updateCartQuantity, filterByCategory, clearCart } = productSlice.actions;
 export default productSlice.reducer;

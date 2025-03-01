@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   const location = useLocation();
 
   if (!isLoggedIn) {
-    return <Navigate to="/login" state={{ from: location.pathname }} />; // ✅ Save attempted page
+    return <Navigate to="/unauthorized" state={{ from: location.pathname }} replace />; //  Redirect to Unauthorized
   }
 
   return children;

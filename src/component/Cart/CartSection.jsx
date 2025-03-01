@@ -57,39 +57,40 @@ const CartSection = ({items,status,error,filteredResults}) => {
 
 
   return (
-    <div className="grid grid-cols-12 ">
-      {/* Filter Sidebar */}
-      <div className="border md:col-start-1 md:col-end-4  md:ml-16 ml-2 min-w-[250px]">
-        <div className="filter ml-6 border-b-2 py-4">
-          <h3 className="font-semibold">FILTERS</h3>
-          <small className="text-gray-300 font-bold">{filteredProducts.length} Products</small>
-        </div>
-
-        {/* Multiple Filter Dropdowns */}
-        {filters.map((filter, index) => (
-          <Dropdown
-            key={index}
-            title={filter.title}
-            items={filter.items}
-            selectedFilters={selectedFilters}
-            setSelectedFilters={setSelectedFilters}
-          />
-        ))}
-      </div>
-
-      {/* Main Content Section */}
-      <div className="md:col-start-4  col-start-5 col-end-12  md:col-end-12 md:flex md:flex-wrap gap-2  md:px-1 lg:px-1 px-1 grid grid-cols-2 ">
-        {displayProducts.length > 0 ? (
-          displayProducts.map((product) => (
-            <div key={product.id} className="flex flex-wrap ">
-              <Card product={product} />
-            </div>
-          ))
-        ) : (
-          <p className="text-center w-full mt-4">No products match the selected filters.</p>
-        )}
-      </div>
+    <div className="grid grid-cols-12 gap-4 p-2">
+  {/* Filter Sidebar */}
+  <div className=" md:col-span-3 col-span-12 min-w-[250px] md:min-w-[280px] lg:min-w-[320px]">
+    <div className="filter ml-6 border-b-2 py-4">
+      <h3 className="font-semibold">FILTERS</h3>
+      <small className="text-gray-300 font-bold">{filteredProducts.length} Products</small>
     </div>
+
+    {/* Multiple Filter Dropdowns */}
+    {filters.map((filter, index) => (
+      <Dropdown
+        key={index}
+        title={filter.title}
+        items={filter.items}
+        selectedFilters={selectedFilters}
+        setSelectedFilters={setSelectedFilters}
+      />
+    ))}
+  </div>
+
+  {/* Main Content Section */}
+  <div className="md:col-span-9 col-span-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
+    {displayProducts.length > 0 ? (
+      displayProducts.map((product) => (
+        <div key={product.id} className="p-2">
+          <Card product={product} />
+        </div>
+      ))
+    ) : (
+      <p className="text-center w-full mt-4">No products match the selected filters.</p>
+    )}
+  </div>
+</div>
+
   );
 };
 

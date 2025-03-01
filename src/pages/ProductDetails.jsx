@@ -43,7 +43,8 @@ const ProductDetail = () => {
       navigate("/login"); // 🔹 Redirect to Login if not logged in
     } else {
       dispatch(addToCart(product));
-      console.log("Adding to cart:", product);
+      // console.log("Adding to cart:", product);
+      alert("✅ Successfully Added to the your Cart!")
     }
   };
 

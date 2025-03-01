@@ -1,7 +1,7 @@
 
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateCartQuantity } from "../Redux/productSlice"; // Import your Redux action
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const CartPage = () => {
@@ -117,9 +117,9 @@ const CartPage = () => {
           </p>
 
           {/* Continue Button */}
-          <button className="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 mt-4 rounded-lg transition duration-200" onClick={() => navigate("/checkout")}>
+          <Link to={'/userAddress'}><button className="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 mt-4 rounded-lg transition duration-200" onClick={() => navigate("/checkout")}>
             Continue
-          </button>
+          </button></Link>
 
           {/* Meesho Safe Info */}
           <div className="mt-4 flex justify-center">

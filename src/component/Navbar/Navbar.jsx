@@ -67,17 +67,17 @@ const Navbar = ({ items, onSearchResults }) => {
 
   return (
     <div className={isAuthenticated?"nav_parent grid sm:grid-rows-[3fr_2fr]":"nav_parent grid sm:grid-rows-1"}>
-      <div className="nav_items grid sm:grid-cols-12 justify-center items-center mt-5 pb-5 border-b">
-        <div className="logo col col-[2/3]">
+      <div className="nav_items grid grid-cols-12 justify-center items-center mt-5 ml-4 pb-5 border-b">
+        <div className="logo col md:col-[2/3] col-[1/2]  mr-52 w-[100px] grid">
         <Link to={'/'}><img src={`${process.env.PUBLIC_URL}/meeshoLogo.svg`}alt="logo" height="36px" width="200px" /></Link>
         </div>
 
         {/* Search Bar */}
-        <div ref={searchRef} className="search relative sm:col-[3/6] ml-10 border rounded-md">
+        <div ref={searchRef} className="search relative md:col-[3/6] col-[2/3]  ml-10   rounded-md">
           <form onSubmit={handleSubmit}>
-            <div className="inputfield flex">
+            <div className="inputfield flex ml-12 border w-full">
               <div className="magnifying">
-                <i className="fa-solid fa-magnifying-glass ml-2 mt-2 text-2xl text-gray-300"></i>
+                <i className="fa-solid fa-magnifying-glass ml-4  mt-2 text-2xl text-gray-300"></i>
               </div>
 
               <input
@@ -128,8 +128,8 @@ const Navbar = ({ items, onSearchResults }) => {
               {downModel && (
                 <div className="absolute sm:top-full sm:left-1/2 -translate-x-1/2 mt-2 w-48 bg-white  sm:shadow-lg sm:border sm:p-4 rounded-md z-10">
                   <h3 className="text-lg font-bold mb-4 cursor-pointer">Download App</h3>
-                  <a href="https://play.google.com/store/apps/details?id=com.meesho.supply&hl=en_IN&pli=1" target="_blank"><img src={`${process.env.PUBLIC_URL}/google.png`} alt="Google Play" className="w-full mb-4" /></a>
-                 <a href="https://apps.apple.com/us/app/meesho-online-shopping/id1457958492" target="_blank"> <img src={`${process.env.PUBLIC_URL}/app.png`}  alt="App Store" className="w-full" /></a>
+                  <a href="https://play.google.com/store/apps/details?id=com.meesho.supply&hl=en_IN&pli=1" target="_blank" rel="noreferrer"><img src={`${process.env.PUBLIC_URL}/google.png`} alt="Google Play" className="w-full mb-4" /></a>
+                 <a href="https://apps.apple.com/us/app/meesho-online-shopping/id1457958492" target="_blank" rel="noreferrer"> <img src={`${process.env.PUBLIC_URL}/app.png`}  alt="App Store" className="w-full" /></a>
                 </div>
               )}
             </div>
