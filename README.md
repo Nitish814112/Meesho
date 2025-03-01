@@ -22,7 +22,7 @@ Step 1: Clone the Repository
 sh
 Copy
 Edit
-git clone https://github.com/your-username/ecommerce-app.git
+git clone https://github.com/Nitish814112/Meesho.git
 cd ecommerce-app
 Step 2: Install Dependencies
 sh
@@ -58,7 +58,7 @@ Clone your fork:
 sh
 Copy
 Edit
-git clone https://github.com/your-username/ecommerce-app.git
+git clone https://github.com/Nitish814112/Meesho.git
 cd ecommerce-app
 Create a new branch:
 sh
