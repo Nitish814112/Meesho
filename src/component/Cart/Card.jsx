@@ -10,7 +10,7 @@ const Card = ({ product }) => {
 
   return (
     <div 
-      className="rounded-lg shadow-lg p-4 w-60 hover:cursor-pointer" 
+      className="rounded-lg shadow-lg  p-4 w-60  hover:cursor-pointer" 
       onClick={handleClick} // ✅ Pass function reference, not execution
     >
       {/* Product Image */}

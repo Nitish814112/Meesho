@@ -57,9 +57,9 @@ const CartSection = ({items,status,error,filteredResults}) => {
 
 
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 ">
       {/* Filter Sidebar */}
-      <div className="border col-start-1 col-end-4 ml-16">
+      <div className="border md:col-start-1 md:col-end-4  md:ml-16 ml-2 min-w-[250px]">
         <div className="filter ml-6 border-b-2 py-4">
           <h3 className="font-semibold">FILTERS</h3>
           <small className="text-gray-300 font-bold">{filteredProducts.length} Products</small>
@@ -78,10 +78,10 @@ const CartSection = ({items,status,error,filteredResults}) => {
       </div>
 
       {/* Main Content Section */}
-      <div className="col-start-4 col-end-12 flex flex-wrap gap-2  px-1">
+      <div className="md:col-start-4  col-start-5 col-end-12  md:col-end-12 md:flex md:flex-wrap gap-2  md:px-1 lg:px-1 px-1 grid grid-cols-2 ">
         {displayProducts.length > 0 ? (
           displayProducts.map((product) => (
-            <div key={product.id} className="">
+            <div key={product.id} className="flex flex-wrap ">
               <Card product={product} />
             </div>
           ))

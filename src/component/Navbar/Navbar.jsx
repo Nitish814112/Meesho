@@ -7,6 +7,8 @@ import './Navbar.css'
 
 
 const Navbar = ({ items, onSearchResults }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const [showMark, setShowMark] = useState(false);
   const [downModel, setDownModel] = useState(false);
   const [profileModel, setProfileModel] = useState(false);
@@ -112,10 +114,11 @@ const Navbar = ({ items, onSearchResults }) => {
         </div>
 
         {/* Navbar Options */}
-        <div className="items_contains sm:col-[7/-1] sm:grid sm:grid-cols-3">
+        <div className={`items_contains ${menuOpen ? "show" : ""} sm:col-[7/-1] sm:grid sm:grid-cols-3`}>
+
           <div className="option_items col-[1/3] flex gap-6">
             <div 
-              className="relative listItem flex gap-2 border-r border-gray-400 px-3 justify-center items-center hover:text-[#9F2089] hover:border-b-[2px] hover:border-[#9F2089]"
+              className="relative listItem flex gap-2  border-r border-gray-400 px-3 justify-center items-center hover:text-[#9F2089] hover:border-b-[2px] hover:border-[#9F2089]"
               onMouseEnter={() => { clearTimeout(downloadTimeout); setDownModel(true); }}
               onMouseLeave={() => { downloadTimeout = setTimeout(() => setDownModel(false), 200); }}
             >
@@ -123,7 +126,7 @@ const Navbar = ({ items, onSearchResults }) => {
               <h4 className="cursor-pointer">Download App</h4>
 
               {downModel && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white shadow-lg border p-4 rounded-md z-10">
+                <div className="absolute sm:top-full sm:left-1/2 -translate-x-1/2 mt-2 w-48 bg-white  sm:shadow-lg sm:border sm:p-4 rounded-md z-10">
                   <h3 className="text-lg font-bold mb-4 cursor-pointer">Download App</h3>
                   <a href="https://play.google.com/store/apps/details?id=com.meesho.supply&hl=en_IN&pli=1" target="_blank"><img src={`${process.env.PUBLIC_URL}/google.png`} alt="Google Play" className="w-full mb-4" /></a>
                  <a href="https://apps.apple.com/us/app/meesho-online-shopping/id1457958492" target="_blank"> <img src={`${process.env.PUBLIC_URL}/app.png`}  alt="App Store" className="w-full" /></a>
@@ -170,7 +173,11 @@ const Navbar = ({ items, onSearchResults }) => {
               </Link>
             </div>
           </div>
+          
         </div>
+        <div id="bar" onClick={() => setMenuOpen(!menuOpen)}>
+        <i className="fa-solid fa-bars"></i>
+      </div>
       </div>
       {isAuthenticated && <NavOption />}
 

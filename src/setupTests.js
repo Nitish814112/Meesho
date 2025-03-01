@@ -2,4 +2,12 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom';
+import { render, screen } from "@testing-library/react";
+import NavOption from "./component/NavOptions/NavOption.jsx";
+
+test('renders "Women Ethnic" category', () => {
+  render(<NavOption />);
+
+  expect(screen.getByText("Women Ethnic")).toBeInTheDocument();
+});
+

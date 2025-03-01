@@ -29,7 +29,7 @@ function MainLayout({ items, status, error, filteredResults, onSearchResults }) 
           element={
             <>
               {/* Hero Section (Hidden if filteredResults exist) */}
-              {filteredResults.length === 0 && <HeroSection />}
+{(filteredResults || []).length === 0 && <HeroSection />}
 
               {/* Cart Section */}
               <CartSection
