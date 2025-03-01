@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+E-Commerce Web App
+An advanced and responsive e-commerce web application that allows users to browse, filter, search, and purchase products seamlessly. It includes an OTP-based authentication system and cart management functionality.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🚀 Features
+User Authentication: Login using OTP verification via email.
+Persistent Login: The user remains logged in until they manually log out.
+Product Search & Filtering: Search by keyword and apply multiple filters.
+Add to Cart: Users can add and remove products from the cart.
+Protected Routes: Cart functionality is restricted to logged-in users.
+Responsive UI: Fully optimized for mobile, tablet, and desktop.
+📌 Tech Stack
+Frontend: React, Tailwind CSS
+State Management: Redux
+Backend: Node.js, Express.js
+Database: MongoDB (if applicable)
+Email Service: EmailJS
+Authentication: OTP-based Login
+📸 Screenshots
+Home Page	Login with OTP	Product Listing
+🛠 Installation
+Step 1: Clone the Repository
+sh
+Copy
+Edit
+git clone https://github.com/your-username/ecommerce-app.git
+cd ecommerce-app
+Step 2: Install Dependencies
+sh
+Copy
+Edit
+npm install
+Step 3: Configure Environment Variables
+Create a .env file in the root directory and add:
 
-## Available Scripts
+ini
+Copy
+Edit
+REACT_APP_EMAILJS_SERVICE_ID=your_service_id
+REACT_APP_EMAILJS_TEMPLATE_ID=your_template_id
+REACT_APP_EMAILJS_PUBLIC_KEY=your_public_key
+Step 4: Run the Application
+sh
+Copy
+Edit
+npm start
+The app will be available at http://localhost:3000 🚀
 
-In the project directory, you can run:
+🛒 Usage Guide
+Sign Up / Log In using your email.
+Verify OTP sent to your email.
+Browse Products, search, and apply filters.
+Add Items to Cart and proceed to checkout.
+👨‍💻 Contributing
+Want to contribute? Follow these steps:
 
-### `npm start`
+Fork this repository.
+Clone your fork:
+sh
+Copy
+Edit
+git clone https://github.com/your-username/ecommerce-app.git
+cd ecommerce-app
+Create a new branch:
+sh
+Copy
+Edit
+git checkout -b feature-branch  
+Make your changes and commit:
+sh
+Copy
+Edit
+git commit -m "Added new feature"  
+Push to GitHub:
+sh
+Copy
+Edit
+git push origin feature-branch  
+Open a Pull Request 🚀
+📃 License
+This project is licensed under the MIT License.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+💬 Contact & Support
+For any issues, please create an issue in this repository or reach out via:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+📧 Email: n814112@gmail.com
+🌐 LinkedIn: www.linkedin.com/in/nitish814112
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
