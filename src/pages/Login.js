@@ -28,6 +28,7 @@ const Login = () => {
     const templateParams = {
       to_name: email,
       otp_code: otpCode,
+      app_name:'Meesho'
     };
 
     try {
